@@ -17,17 +17,10 @@ RUN git clone $PROJECT_REPO $PROJECT_DIR && \
     cd $PROJECT_DIR && \
     git checkout $PROJECT_TAG
 
-RUN cat >> $PROJECT_DIR/.gitmodule << EOL \
-[submodule "public/extensions/simple-task-editor"] \
-        path = public/extensions/simple-task-editor \
-        url = https://github.com/sn-extensions/simple-task-editor.git \
-[submodule "public/extensions/editor-plus"] \
-        path = public/extensions/editor-plus \
-        url = https://github.com/sn-extensions/editor-plus.git \
-EOL
-
 WORKDIR $PROJECT_DIR
 
+RUN git submodule add https://github.com/sn-extensions/simple-task-editor.git public/extensions/simple-task-editor
+RUN git submodule add https://github.com/sn-extensions/plus-editor public/extensions/editor-plus
 RUN git submodule update --init --force --remote
 
 RUN gem install bundler
