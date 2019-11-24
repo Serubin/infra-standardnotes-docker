@@ -5,7 +5,9 @@ version: '3.3'
 services:
   standardnotes-server:
     image: serubin/standard-notes-server
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile.server
     deploy:
       replicas: 1
       restart_policy:
@@ -24,8 +26,8 @@ services:
       - traefik-public
     labels:
       - "traefik.enable=true"
-      - "traefik.domain=notes.serubin.net"
-      - "traefik.frontend.rule=Host: notes.serubin.net"
+      - "traefik.domain=sync.notes.serubin.net"
+      - "traefik.frontend.rule=Host: sync.notes.serubin.net"
       - "traefik.tags=traefik-public"
       - "traefik.docker.network=traefik-public"
       - "traefik.port=3000"
@@ -34,6 +36,28 @@ services:
     # Wait for database container to start before running the server.
     depends_on:
       - standardnotes-db
+
+  standardnotes-app:
+    image: serubin/standard-notes-app
+    build:
+      context: .
+      dockerfile: Dockerfile.app
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    restart: always
+    networks:
+      - default
+      - traefik-public
+    labels:
+      - "traefik.enable=true"
+      - "traefik.domain=notes.serubin.net"
+      - "traefik.frontend.rule=Host: notes.serubin.net"
+      - "traefik.tags=traefik-public"
+      - "traefik.docker.network=traefik-public"
+      - "traefik.port=3000"
+      - "traefik.default.protocol=http"
 
   standardnotes-db:
     image: mysql:latest
