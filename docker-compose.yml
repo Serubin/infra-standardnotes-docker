@@ -51,6 +51,7 @@ services:
     environment:
       - EXTENSIONS_MANAGER_LOCATION=extensions/extensions-manager/dist/index.html
       - BATCH_MANAGER_LOCATION=extensions/batch-manager/dist/index.min.html
+      - SF_DEFAULT_SERVER=https://sync.notes.serubin.net
     networks:
       - default
       - traefik-public
