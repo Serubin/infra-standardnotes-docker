@@ -25,7 +25,7 @@ deploy-prod:
     - docker stack deploy -c docker-compose.yml --with-registry-auth $(echo $CI_PROJECT_NAME | sed 's/-docker//')
   environment:
     name: production
-    url: https://admin.serubin.net/traefik
+    url: https://notes.serubin.net
 
   only:
     - master
