@@ -19,6 +19,7 @@ RUN git clone $PROJECT_REPO $PROJECT_DIR && \
 
 WORKDIR $PROJECT_DIR
 
+RUN gem install bundler
 RUN bundle install
 RUN npm install
 RUN npm run build
