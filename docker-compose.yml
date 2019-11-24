@@ -61,12 +61,14 @@ services:
       - "traefik.default.protocol=http"
 
   standardnotes-db:
-    image: mysql:latest
+    image: mariadb:latest
     environment:
       - MYSQL_ROOT_PASSWORD=$DB_PASSWORD
     networks:
       - default
       - traefik-public
+    volumes:
+      - /opt/data/standardnotes:/var/lib/mysql
     deploy:
       replicas: 1
       restart_policy:
