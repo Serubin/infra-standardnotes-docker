@@ -1,6 +1,6 @@
 # Based on https://github.com/standardfile/ruby-server/blob/master/docker-compose.yml
 
-version: '3'
+version: '3.3'
 
 services:
   standardnotes-server:
@@ -48,3 +48,6 @@ services:
         condition: on-failure
     restart: always
 
+networks:
+  traefik-public:
+    external: true
