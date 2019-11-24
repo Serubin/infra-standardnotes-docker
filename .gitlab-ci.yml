@@ -1,0 +1,32 @@
+image: tiangolo/docker-with-compose
+
+before_script:
+  - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+
+stages:
+  - build
+  - deploy
+
+build-prod:
+  tags:
+    - docker
+  stage: build
+  script:
+    - docker-compose build
+  only:
+    - master
+
+deploy-prod:
+  tags:
+    - docker
+    - swarm
+  stage: deploy
+  script:
+    - docker stack deploy -c docker-compose.yml --with-registry-auth $(echo $CI_PROJECT_NAME | sed 's/-docker//')
+  environment:
+    name: production
+    url: https://admin.serubin.net/traefik
+
+  only:
+    - master
+
