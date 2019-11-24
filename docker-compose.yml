@@ -21,7 +21,7 @@ services:
       - DB_DATABASE=standardnotes
       - DB_USERNAME=$DB_USERNAME
       - DB_PASSWORD=$DB_PASSWORD
-      - secret_key_base=$secret_key_base
+      - SECRET_KEY_BASE=$SECRET_KEY_BASE
     networks:
       - default
       - traefik-public
