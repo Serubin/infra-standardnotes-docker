@@ -3,7 +3,7 @@
 FROM ruby:2-alpine
 
 ENV PROJECT_REPO=https://github.com/standardfile/ruby-server
-ENV PROJECT_COMMIT=40b99331863ca0de7dfdb96c81cf875da25e319f
+ENV PROJECT_COMMIT=master
 ENV PROJECT_DIR=/data/src/
 
 # Build and test dependencies.
@@ -26,7 +26,7 @@ RUN git clone $PROJECT_REPO $PROJECT_DIR && \
 
 WORKDIR $PROJECT_DIR
 
-RUN gem install bundler:2.0.2
+RUN gem install bundler
 RUN bundle install
 RUN bundle exec rake assets:precompile
 
