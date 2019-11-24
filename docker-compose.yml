@@ -48,6 +48,9 @@ services:
       restart_policy:
         condition: on-failure
     restart: always
+    environment:
+      - EXTENSIONS_MANAGER_LOCATION=extensions/extensions-manager/dist/index.html
+      - BATCH_MANAGER_LOCATION=extensions/batch-manager/dist/index.min.html
     networks:
       - default
       - traefik-public

@@ -17,6 +17,8 @@ RUN git clone $PROJECT_REPO $PROJECT_DIR && \
     cd $PROJECT_DIR && \
     git checkout $PROJECT_TAG
 
+RUN git clone https://github.com/sn-extensions/simple-task-editor.git /extensions/simple-task-editor && git clone https://github.com/sn-extensions/plus-editor.git /extensions/plus-editor && mv /extensions/* $PROJECT_DIR/public/extensions/
+
 WORKDIR $PROJECT_DIR
 
 RUN gem install bundler
