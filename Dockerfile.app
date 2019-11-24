@@ -17,9 +17,18 @@ RUN git clone $PROJECT_REPO $PROJECT_DIR && \
     cd $PROJECT_DIR && \
     git checkout $PROJECT_TAG
 
-RUN git clone https://github.com/sn-extensions/simple-task-editor.git /extensions/simple-task-editor && git clone https://github.com/sn-extensions/plus-editor.git /extensions/plus-editor && mv /extensions/* $PROJECT_DIR/public/extensions/
+RUN cat >> $PROJECT_DIR/.gitmodule << EOL \
+[submodule "public/extensions/simple-task-editor"] \
+        path = public/extensions/simple-task-editor \
+        url = https://github.com/sn-extensions/simple-task-editor.git \
+[submodule "public/extensions/editor-plus"] \
+        path = public/extensions/editor-plus \
+        url = https://github.com/sn-extensions/editor-plus.git \
+EOL
 
 WORKDIR $PROJECT_DIR
+
+RUN git submodule update --init --force --remote
 
 RUN gem install bundler
 RUN bundle install
