@@ -17,7 +17,7 @@ services:
       - RAILS_ENV=production
       - RAILS_SERVE_STATIC_FILES=true
       - DB_CONNECTION=mysql
-      - DB_HOST=db
+      - DB_HOST=standardnotes-db
       - DB_DATABASE=standardnotes
       - DB_USERNAME=$DB_USERNAME
       - DB_PASSWORD=$DB_PASSWORD
