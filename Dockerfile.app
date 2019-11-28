@@ -11,7 +11,8 @@ RUN apk add --update --no-cache \
     git \
     nodejs \
     nodejs-npm \
-    tzdata
+    tzdata \
+    bash
 
 RUN git clone $PROJECT_REPO $PROJECT_DIR && \
     cd $PROJECT_DIR && \
@@ -21,8 +22,8 @@ WORKDIR $PROJECT_DIR
 
 RUN wget https://raw.githubusercontent.com/Serubin/standardnotes-manifest-creator/master/sn-manifest.sh && chmod -x sn-manifest.sh
 
-RUN ./sn-manifest.sh -a theme -t Component https://github.com/sn-extensions/plus-editor.git public/extensions/plus-editor
-RUN ./sn-manifest.sh -a theme -t Component https://github.com/sn-extensions/simple-task-editor.git public/extensions/simple-task-editor
+RUN bash sn-manifest.sh -a theme -t Component https://github.com/sn-extensions/plus-editor.git public/extensions/plus-editor
+RUN bash sn-manifest.sh -a theme -t Component https://github.com/sn-extensions/simple-task-editor.git public/extensions/simple-task-editor
 RUN git submodule update --init --force --remote
 
 RUN gem install bundler
